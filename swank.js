@@ -423,9 +423,9 @@ io.sockets.on(
         if (client.connection && client.connection.remoteAddress)
           address = client.connection.remoteAddress || "noaddress";
         if (message.coffee) {
-            var remote = new BrowserRemote({ address: address, userAgent: message.userAgent || "" }, client);
-        } else {
             var remote = new CoffeeBrowserRemote({ address: address, userAgent: message.userAgent || "" }, client);
+        } else {
+            var remote = new BrowserRemote({ address: address, userAgent: message.userAgent || "" }, client);
         }
 
         executive.attachRemote(remote);
