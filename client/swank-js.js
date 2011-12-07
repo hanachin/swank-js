@@ -163,7 +163,7 @@ SwankJS.setupSocket = function setupSocket (url) {
       }));
 };
 
-SwankJS.setup = function setup (url) {
+SwankJS.setup = function setup (url, coffee) {
   try {
     if (parent.window && parent.window.document !== document && parent.window.SwankJS)
       return;
