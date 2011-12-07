@@ -33,7 +33,7 @@ var swp = require("./swank-protocol");
 var ua = require("./user-agent");
 var config = require("./config");
 var CoffeeRemote = require("./coffee-remote").CoffeeRemote;
-
+var CoffeeBrowserRemote = require("./coffee-browser-remote").CoffeeBrowserRemote;
 var DEFAULT_TARGET_HOST = "localhost";
 var DEFAULT_TARGET_PORT = 8080;
 var CONFIG_FILE_NAME = "~/.swankjsrc";
@@ -422,7 +422,12 @@ io.sockets.on(
         var address = null;
         if (client.connection && client.connection.remoteAddress)
           address = client.connection.remoteAddress || "noaddress";
-        var remote = new BrowserRemote({ address: address, userAgent: message.userAgent || "" }, client);
+        if (message.coffee) {
+            var remote = new BrowserRemote({ address: address, userAgent: message.userAgent || "" }, client);
+        } else {
+            var remote = new CoffeeBrowserRemote({ address: address, userAgent: message.userAgent || "" }, client);
+        }
+
         executive.attachRemote(remote);
         console.log("added remote: %s", remote.fullName());
       }

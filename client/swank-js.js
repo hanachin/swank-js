@@ -83,7 +83,7 @@ SwankJS.makeSocketHandler = function makeSocketHandler (func) {
 
 SwankJS.url = null;
 
-SwankJS.setupSocket = function setupSocket (url) {
+SwankJS.setupSocket = function setupSocket (url, coffee) {
   if (url)
     this.url = url;
   this.socket = io.connect(this.url, { "force new connection": true });
@@ -98,7 +98,7 @@ SwankJS.setupSocket = function setupSocket (url) {
         }
         self.connected = true;
         self.debug("connected");
-        self.socket.send(JSON.stringify({ "op": "handshake", "userAgent": navigator.userAgent }));
+        self.socket.send(JSON.stringify({ "op": "handshake", "userAgent": navigator.userAgent, "coffee": coffee}));
         if (self.bufferedOutput.length > 0) {
           for (var i = 0; i < self.bufferedOutput.length; ++i)
             self.output(self.bufferedOutput[i]);
@@ -163,7 +163,7 @@ SwankJS.setupSocket = function setupSocket (url) {
       }));
 };
 
-SwankJS.setup = function setup (url) {
+SwankJS.setup = function setup (url, coffee) {
   try {
     if (parent.window && parent.window.document !== document && parent.window.SwankJS)
       return;
@@ -174,7 +174,7 @@ SwankJS.setup = function setup (url) {
   // web app itself.
   // Don't forget about 'Host: ' header though!
   this.lastMessageTime = new Date().getTime();
-  this.setupSocket(url);
+  this.setupSocket(url, !!coffee);
 };
 
 SwankJS.startPing = function startPing () {
