@@ -200,7 +200,7 @@ Null prefix argument turns off the mode."
   " slime-js"
   '(("\C-\M-x"  . slime-js-send-defun)
     ("\C-c\C-c" . slime-js-send-defun)
-    ;; ("\C-c\C-r" . slime-eval-region)
+    ("\C-c\C-r" . slime-eval-region)
     ("\C-c\C-z" . slime-switch-to-output-buffer)))
 
 ;; TBD: dabbrev in repl:
