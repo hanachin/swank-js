@@ -75,7 +75,12 @@ CoffeeBrowserRemote.prototype.id = function id () {
 };
 
 CoffeeBrowserRemote.prototype.evaluate = function evaluate (id, str) {
-  this.client.send(JSON.stringify({ "id": id, "code": cs.compile(str, { bare: true}) }));
+  try {
+    str = cs.compile(str, { bare: true});
+  } catch (e) {
+    str = '"' + e.message + '"';
+  }
+  this.client.send(JSON.stringify({ "id": id, "code": str }));
   this.pendingRequests[id] = new Date().getTime();
 };
 
