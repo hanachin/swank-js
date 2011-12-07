@@ -32,6 +32,7 @@ var swh = require("./swank-handler");
 var swp = require("./swank-protocol");
 var ua = require("./user-agent");
 var config = require("./config");
+var CoffeeRemote = require("./coffee-remote").CoffeeRemote;
 
 var DEFAULT_TARGET_HOST = "localhost";
 var DEFAULT_TARGET_PORT = 8080;
@@ -147,6 +148,8 @@ BrowserRemote.prototype.disconnect = function disconnect () {
   this.sweepRequests(true);
   swh.Remote.prototype.disconnect.call(this);
 };
+
+executive.attachRemote(new CoffeeRemote);
 
 // proxy code from http://www.catonmat.net/http-proxy-in-nodejs
 
